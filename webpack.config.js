@@ -83,7 +83,11 @@ getPlugins = () => {
       {
         from: path.resolve(__dirname, 'src/favicon.ico'),
         to: path.resolve(__dirname, 'dist'),
-      }
+      },
+      {
+        from: path.resolve(__dirname, 'src/assets'),
+        to: path.resolve(__dirname, 'dist/assets'),
+      },
     ]),
     new MiniSccExtractPlugin({
       filename: '[name].[contenthash].css',
@@ -109,6 +113,7 @@ module.exports = {
   output: {
     filename: isProd ? '[name].[contenthash].js' : '[name].[hash].js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
   },
   resolve: {
     extensions: ['.js', '.json'],
@@ -120,6 +125,7 @@ module.exports = {
   devServer: {
     port: 5000,
     hot: isDev,
+    historyApiFallback: true,
   },
   devtool: isDev ? 'source-map' : '',
   plugins: getPlugins(),
